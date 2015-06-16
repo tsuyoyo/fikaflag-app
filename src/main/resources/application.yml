@@ -1,0 +1,8 @@
+spring:
+    profiles: dev
+    thymeleaf:
+        cache: false
+---
+spring:
+    profiles:
+        active: dev

@@ -1,13 +1,10 @@
 package tsuyoyo.fikaflag.services
 
-import java.util.UUID;
+import org.springframework.stereotype.Service
+import tsuyoyo.fikaflag.domain.FikaFlag
+import tsuyoyo.fikaflag.domain.JoinPost
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.stereotype.Service;
-
-import tsuyoyo.fikaflag.domain.FikaFlag;
-import tsuyoyo.fikaflag.domain.JoinPost;
+import javax.annotation.PostConstruct
 
 @Service
 class FlagsService implements IFlagsService {
@@ -32,7 +29,7 @@ class FlagsService implements IFlagsService {
 	@Override
 	public UUID post(FikaFlag flag) {
 		UUID uuid = UUID.randomUUID();
-		while (!mFlags.get(uuid)) {
+		while (mFlags.get(uuid)) {
 			uuid = UUID.randomUUID();
 		}
 		mFlags.put(uuid, flag);

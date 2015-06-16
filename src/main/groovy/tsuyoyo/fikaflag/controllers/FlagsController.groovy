@@ -3,6 +3,7 @@ package tsuyoyo.fikaflag.controllers
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -22,9 +23,10 @@ public class FlagsController {
 	
 	@Autowired
 	IFlagsService flagsService;
-	
+
 	@RequestMapping("/")
-	public String showTopPage() {
+	public String topPage(Model model) {
+		model.addAttribute("flags", flagsService.get().values().toList());
 		return "index";
 	}
 	

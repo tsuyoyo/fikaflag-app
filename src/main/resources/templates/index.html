@@ -1,17 +1,25 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8"/>
-        <title>サンプル</title>
-        <script type="text/javascript" 
-                src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <title>FilaFlags</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="js/sockets.js"></script>
     </head>
     <body>
+
+        <ul>
+            <li th:each="flag : ${flags}">
+                <p th:text="${flag.location}"></p>
+                <p th:text="${flag.message}"></p>
+            </li>
+        </ul>
+
         <div id="result"></div>
         <form id="form" action="#">
             <input type="text" id="message" />
             <input type="submit" value="送信" />
         </form>
+
     </body>
 </html>
