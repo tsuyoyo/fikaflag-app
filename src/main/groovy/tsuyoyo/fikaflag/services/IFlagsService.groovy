@@ -6,13 +6,15 @@ import java.util.UUID;
 import tsuyoyo.fikaflag.domain.FikaFlag
 import tsuyoyo.fikaflag.domain.JoinPost
 
+import java.util.concurrent.Future
+
 interface IFlagsService {
 	
 	/**
 	 * 全てのflagを取得
 	 * @return
 	 */
-	Map<UUID, FikaFlag> get();
+	List<FikaFlag> get();
 
 	/**
 	 * 指定したflagを取得
@@ -30,9 +32,8 @@ interface IFlagsService {
 	/**
 	 * 参加表明を登録
 	 * @param joinPost
-	 * @return entry ID
 	 */
-	int join(JoinPost joinPost);
+	int join(JoinPost joinPost, boolean now);
 
 	/**
 	 * 参加を取りやめ

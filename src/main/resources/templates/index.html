@@ -3,23 +3,28 @@
     <head>
         <meta charset="utf-8"/>
         <title>FilaFlags</title>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="bower_components/require.js"></script>
         <script type="text/javascript" src="js/sockets.js"></script>
+        <script type="text/javascript" src="js/join.js"></script>
     </head>
     <body>
+        <div>
+            <ul>
+                <li th:each="flag : ${flags}">
+                    <p th:text="${flag.location}"></p>
+                    <p th:text="${flag.message}"></p>
+                    <button th:onclick="'join(\'' + ${flag.uuid} + '\',true);'">
+                        今すぐいきます
+                    </button>
+                </li>
+            </ul>
 
-        <ul>
-            <li th:each="flag : ${flags}">
-                <p th:text="${flag.location}"></p>
-                <p th:text="${flag.message}"></p>
-            </li>
-        </ul>
-
-        <div id="result"></div>
-        <form id="form" action="#">
-            <input type="text" id="message" />
-            <input type="submit" value="送信" />
-        </form>
+            <div id="result"></div>
+            <form id="form" action="#">
+                <input type="text" id="message" />
+                <input type="submit" value="送信" />
+            </form>
+        </div>
 
     </body>
 </html>

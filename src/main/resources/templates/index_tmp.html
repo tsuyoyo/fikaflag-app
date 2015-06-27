@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>FilaFlags</title>
+    <script data-main="js/libs/config.js"
+            src="bower_components/requirejs/require.js"></script>
+    <script src="js/tmp.js"></script>
+</head>
+<body>
+<div>
+    <ul>
+        <li th:each="flag : ${flags}">
+            <p th:text="${flag.location}"></p>
+            <p th:text="${flag.message}"></p>
+            <button th:onclick="'join(\'' + ${flag.uuid} + '\',true);'">
+                今すぐいきます
+            </button>
+        </li>
+    </ul>
+
+    <button onclick="joinTest('aaa');">
+        今すぐいきます
+    </button>
+
+    <div id="result"></div>
+    <form id="form" action="#">
+        <input type="text" id="message" />
+        <input type="submit" value="送信" />
+    </form>
+</div>
+
+</body>
+</html>

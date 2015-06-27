@@ -3,7 +3,7 @@
 // 	http://www.jquerystudy.info/reference/core/jQuery3.html
 $(function(){
 	var ws = new WebSocket("ws://" + location.host + "/echo");
-	
+
 	ws.onopen = function(){
         
 		if (!window.Notification) {
@@ -14,6 +14,8 @@ $(function(){
 		Notification.requestPermission(function(selectedPermission) {
 			permission = selectedPermission;
 		});
+
+		console.log('onOpen : ' + location.host);
 		    
 	};
     

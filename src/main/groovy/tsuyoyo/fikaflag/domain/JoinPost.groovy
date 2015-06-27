@@ -7,7 +7,6 @@ class JoinPost {
 	@NotNull
 	UUID flagId;
 
-	@NotNull
-	int sessionId;
+	String name;
 
 }

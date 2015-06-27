@@ -1,14 +1,16 @@
 package tsuyoyo.fikaflag.domain
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore
 
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotNull
+import javax.validation.constraints.Null
 
 class FikaFlag {
 	
 	Date date;
+
+    @Null
+    UUID uuid;
 
 	@NotNull	
 	String location;
@@ -16,6 +18,11 @@ class FikaFlag {
 	@NotNull
 	String message;
 
+	@NotNull
 	@JsonIgnore
-	List<String> attendees;
+	final List<String> attendees = new ArrayList<String>();
+
+	@NotNull
+    String host;
+
 }

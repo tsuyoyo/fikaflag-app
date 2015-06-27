@@ -16,7 +16,7 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 
 @Component
-class MessageHandler extends TextWebSocketHandler {
+class ClientSocketHandler extends TextWebSocketHandler {
 	
 	private Map<String, WebSocketSession> sessionPool = new ConcurrentHashMap<>();
 

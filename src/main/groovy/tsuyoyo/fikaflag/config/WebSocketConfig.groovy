@@ -5,17 +5,23 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.web.socket.config.annotation.EnableWebSocket
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
-import tsuyoyo.fikaflag.websocket.MessageHandler
+import tsuyoyo.fikaflag.websocket.ClientSocketHandler
+import tsuyoyo.fikaflag.websocket.FikaPointSocketHandler
 
 @Configuration
 @EnableWebSocket
 class WebSocketConfig implements WebSocketConfigurer {
 
 	@Autowired
-	private MessageHandler messageHandler;
+	private ClientSocketHandler messageHandler;
+
+	@Autowired
+	private FikaPointSocketHandler fikaPointSocketHandler;
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		registry.addHandler(messageHandler, "/echo").setAllowedOrigins("*");
+
+		registry.addHandler(fikaPointSocketHandler, "/point").setAllowedOrigins("*");
 	}
 }
