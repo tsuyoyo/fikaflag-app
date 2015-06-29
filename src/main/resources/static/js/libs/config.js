@@ -11,6 +11,9 @@ requirejs.config({
         ],
         join : [
             'js/libs/join'
+        ],
+        socket : [
+            'js/libs/socket'
         ]
     }
 

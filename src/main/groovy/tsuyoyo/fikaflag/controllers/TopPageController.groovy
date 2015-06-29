@@ -19,10 +19,4 @@ class TopPageController {
         return "index";
     }
 
-    @RequestMapping("/tmp")
-    public String topTmpPage(Model model) {
-        model.addAttribute("flags", flagsService.get());
-        return "index_tmp";
-    }
-
 }
