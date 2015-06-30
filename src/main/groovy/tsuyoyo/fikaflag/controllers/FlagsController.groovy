@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
-
+import org.springframework.web.bind.annotation.RestController
 import tsuyoyo.fikaflag.domain.FikaFlag
 import tsuyoyo.fikaflag.domain.JoinPost
 import tsuyoyo.fikaflag.services.IFlagsService
 import tsuyoyo.fikaflag.websocket.ClientSocketHandler
 
+import javax.validation.constraints.NotNull
 import java.util.concurrent.Future
 
-@Controller
+@RestController
 public class FlagsController {
 
 	@Autowired
@@ -35,6 +36,10 @@ public class FlagsController {
 		return id;
 	}
 
-
+	@RequestMapping(value="/flag", method=RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public void rejectFlag(@RequestBody @NotNull UUID uuid) {
+		flagsService.delete(uuid);
+	}
 
 }

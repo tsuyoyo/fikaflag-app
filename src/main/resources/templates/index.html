@@ -13,8 +13,8 @@
         socket.registerClient();
     });
 
-    function join(uuid) {
-        require(['join'], function(j) { j.join(uuid); });
+    function join(uuid, justNow) {
+        require(['join'], function(j) { j.join(uuid, justNow); });
     }
 </script>
 <div>
@@ -29,8 +29,11 @@
         <li th:each="flag : ${flags}">
             <p th:text="${flag.location}"></p>
             <p th:text="${flag.message}"></p>
-            <button th:onclick="'join(\'' + ${flag.uuid} + '\',true);'">
+            <button th:onclick="'join(\'' + ${flag.uuid} + '\', true);'">
                 今すぐいきます
+            </button>
+            <button th:onclick="'join(\'' + ${flag.uuid} + '\', false);'">
+                もうちょっとしたらいきます
             </button>
         </li>
     </ul>
