@@ -10,7 +10,10 @@
 <script type="text/javascript">
     // Try to connect its socket to server side at finishing page load
     require(['socket'], function(socket) {
-        socket.registerClient();
+        var onInvitationSent = function(msg) {
+            location.reload();
+        };
+        socket.registerClient(onInvitationSent);
     });
 
     function join(uuid, justNow) {

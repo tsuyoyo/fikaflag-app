@@ -5,10 +5,32 @@ define(['jquery'], function($) {
          * Register this client to server app
          *
          */
-        registerClient: function () {
+        registerClient: function (onInvitationPosted) {
             var END_POINT = "ws://" + location.host + "/client";
 
             var ws = new WebSocket(END_POINT);
+
+            var notify = function(flag) {
+                if (permission !== 'granted') {
+                    console.log('Notification is not allowed');
+                    return;
+                }
+
+                var notify = new Notification('Fika invitation has comes',
+                        {
+                            tag: 'MyService',
+                            body: flag.message,
+                            icon: 'images/coffee.jpg'
+                        });
+
+                notify.addEventListener('click', function() {
+                    open('http://' + location.host);
+                });
+
+                setTimeout(function() {
+                    notify.close();
+                }, 5000);
+            };
 
             ws.onopen = function(){
                 if (!window.Notification) {
@@ -26,23 +48,15 @@ define(['jquery'], function($) {
             };
 
             ws.onmessage = function(message){
-
-                if (permission !== 'granted') {
-                    console.log('Notification is not allowed');
-                    return;
-                }
-
                 var msg = JSON.parse(message.data);
 
-                var notify = new Notification('Invitation from ' + msg.createdby,
-                        {
-                            tag: 'MyService',
-                            body: msg.message,
-                            icon: 'images/coffee.jpg'
-                        });
-                notify.addEventListener('click', function() {
-                    open('http://' + location.host);
-                });
+                if (msg.event == 'openflag') {
+                    notify(msg.fikaflag);
+                    onInvitationPosted(msg.fikaflag);
+                }
+                else if (msg.event == 'closeflag') {
+                    onInvitationPosted();
+                }
             };
 
             ws.onerror = function(event){

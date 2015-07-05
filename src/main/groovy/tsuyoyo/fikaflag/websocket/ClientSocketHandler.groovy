@@ -45,19 +45,41 @@ class ClientSocketHandler extends TextWebSocketHandler {
 		
 		Invitation invitation = new Invitation();
 		invitation.message = flag.message + " at " + flag.location;
+		invitation.host = flag.host;
 //		invitation.createdby = session.getId();
 		invitation.startTime = new Date(Calendar.getInstance().getTimeInMillis());//flag.date;
-			
-		String json = "";
+
+		Map<String, String> msgData = new HashMap<>();
+		msgData.put("event", "openflag");
+		msgData.put("fikaflag", invitation);
+
+		TextMessage msg;
+
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			json = mapper.writeValueAsString(invitation);
+			msg = new TextMessage(mapper.writeValueAsString(msgData));
 		} catch (JsonProcessingException e) {
-			json = e.getMessage();
+			System.out.println(e.getMessage());
+		}
+				
+		sessionPool.entrySet().each {
+			it.getValue().sendMessage(msg)
+		}
+	}
+
+	public void broadcastClose() {
+		Map<String, String> msgData = new HashMap<>();
+		msgData.put("event", "closeflag");
+
+		TextMessage msg;
+
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			msg = new TextMessage(mapper.writeValueAsString(msgData));
+		} catch (JsonProcessingException e) {
+			System.out.println(e.getMessage());
 		}
 
-		TextMessage msg = new TextMessage(json);
-				
 		sessionPool.entrySet().each {
 			it.getValue().sendMessage(msg)
 		}

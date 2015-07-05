@@ -1,14 +1,13 @@
 package tsuyoyo.fikaflag.services
 
-import org.springframework.scheduling.annotation.Async
-import org.springframework.scheduling.annotation.AsyncResult
+import org.springframework.http.HttpEntity
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import tsuyoyo.fikaflag.domain.FikaFlag
 import tsuyoyo.fikaflag.domain.JoinPost
 
 import javax.annotation.PostConstruct
-import java.util.concurrent.Future
 import java.util.function.Predicate
 
 @Service
@@ -40,7 +39,6 @@ class FlagsService implements IFlagsService {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    @Async
     @Override
 	public int join(JoinPost joinPost, boolean now) {
 
@@ -54,10 +52,14 @@ class FlagsService implements IFlagsService {
         if (host) {
             String url = "http://" + host + "/join/" + (now ? "justnow" : "afterminutes");
 
-			Map<String, String> args = new HashMap<String, String>();
-			args.put("user", joinPost.name);
+			Map<String, String> requestBody = new HashMap<String, String>();
+			requestBody.put("user", joinPost.name);
 
-            return restTemplate.postForLocation(url, String.class, args);
+			ResponseEntity<String> res = restTemplate.postForEntity(url,
+					new HttpEntity(requestBody), String.class);
+			System.out.println(res.body);
+
+			return res.statusCode.value();
         } else {
             throw new BadRequestException();
         }

@@ -17,5 +17,7 @@ class Invitation {
 	String message;
 	
 	Date startTime;
+
+	String host;
 	
 }

@@ -20,7 +20,7 @@ define(['jquery'], function($) {
                 data: JSON.stringify(data),
 
                 success: function(res){
-                    console.log(JSON.stringify(res));
+                    console.log("Join has been submitted : " + JSON.stringify(res));
                 },
 
                 error: function(req, status, err) {

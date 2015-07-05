@@ -1,12 +1,7 @@
 package tsuyoyo.fikaflag.services
 
-import java.util.Map;
-import java.util.UUID;
-
 import tsuyoyo.fikaflag.domain.FikaFlag
 import tsuyoyo.fikaflag.domain.JoinPost
-
-import java.util.concurrent.Future
 
 interface IFlagsService {
 	

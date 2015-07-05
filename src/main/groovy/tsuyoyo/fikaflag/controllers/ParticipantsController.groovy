@@ -17,7 +17,7 @@ class ParticipantsController {
 
     @RequestMapping(method = RequestMethod.POST, value="/join")
     @ResponseStatus(HttpStatus.CREATED)
-    public Future<Integer> join(@RequestBody @Validated final JoinPost post,
+    public int join(@RequestBody @Validated final JoinPost post,
                                 @RequestParam(required = false) boolean now) {
         return flagsService.join(post, now);
     }
